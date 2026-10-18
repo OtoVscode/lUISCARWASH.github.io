@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lustre Atelier | Estética Automotriz de Alta Gama</title>
+  <meta name="description" content="Detailing automotriz artesanal y de lujo. Lavado 100% a mano, corrección de pintura y protección cerámica.">
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0a0a0a',
+            gold: {
+              300: '#f3dfa8',
+              400: '#e6c77a',
+              500: '#d4a94f',
+              600: '#b38a35'
+            }
+          },
+          fontFamily: {
+            display: ['Montserrat', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --gold: #d4a94f;
+      --gold-soft: rgba(212, 169, 79, 0.45);
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #f5f5f5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- Navbar: subrayado animado ---------- */
+    .nav-link {
+      position: relative;
+      padding: 0.25rem 0;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    /* ---------- Botón con borde brillante ---------- */
+    .btn-shine-border {
+      position: relative;
+      isolation: isolate;
+      border-radius: 9999px;
+    }
+    .btn-shine-border::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(from var(--angle, 0deg), transparent 0deg, var(--gold) 60deg, #fff6dc 90deg, var(--gold) 120deg, transparent 180deg, transparent 360deg);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: spinBorder 4s linear infinite;
+      z-index: -1;
+    }
+    @property --angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @keyframes spinBorder {
+      to { --angle: 360deg; }
+    }
+
+    /* ---------- Micro-interacciones de botones ---------- */
+    .btn {
+      transition: transform 0.3s var(--ease-out), filter 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+      will-change: transform;
+    }
+    .btn:hover {
+      transform: scale(1.04);
+      filter: brightness(1.12);
+    }
+    .btn:active {
+      transform: scale(0.97);
+      transition-duration: 0.1s;
+    }
+
+    /* Botón glow */
+    .btn-glow {
+      box-shadow: 0 0 0 0 var(--gold-soft), 0 10px 30px -10px rgba(212, 169, 79, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 0 35px 2px var(--gold-soft), 0 10px 40px -8px rgba(212, 169, 79, 0.8);
+    }
+    .btn-glow::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.7s var(--ease-out);
+    }
+    .btn-glow:hover::after {
+      left: 140%;
+    }
+
+    /* ---------- Hero: Ken Burns ---------- */
+    .hero-bg {
+      background-image:
+        url("https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=2400&q=80"),
+        url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2400&q=80");
+      background-size: cover;
+      background-position: center;
+      animation: kenBurns 28s ease-in-out infinite alternate;
+      transform-origin: 60% 50%;
+      will-change: transform;
+    }
+    @keyframes kenBurns {
+      0%   { transform: scale(1) translate3d(0, 0, 0); }
+      100% { transform: scale(1.14) translate3d(-1.5%, -1%, 0); }
+    }
+
+    /* ---------- Entrada escalonada (carga del Hero) ---------- */
+    .intro {
+      opacity: 0;
+      transform: translateY(28px);
+      animation: fadeSlideUp 1s var(--ease-out) forwards;
+      animation-delay: var(--delay, 0s);
+    }
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Navbar entra desde arriba */
+    .nav-enter {
+      opacity: 0;
+      transform: translateY(-100%);
+      animation: navDown 0.9s var(--ease-out) 0.1s forwards;
+    }
+    @keyframes navDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Texto con degradado metálico */
+    .text-metal {
+      background: linear-gradient(100deg, #ffffff 0%, #d9d9d9 35%, #f3dfa8 55%, #d4a94f 70%, #ffffff 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 7s linear infinite;
+    }
+    @keyframes shimmer {
+      to { background-position: 200% center; }
+    }
+
+    /* Punto pulsante en la píldora */
+    .pulse-dot::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      background: var(--gold);
+      animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    @keyframes ping {
+      75%, 100% {
+        transform: scale(2.4);
+        opacity: 0;
+      }
+    }
+
+    /* Indicador de scroll */
+    .scroll-wheel {
+      animation: wheel 2s ease-in-out infinite;
+    }
+    @keyframes wheel {
+      0%   { opacity: 0; transform: translateY(0); }
+      30%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(10px); }
+    }
+
+    /* Menú móvil */
+    #mobile-menu {
+      transition: opacity 0.4s var(--ease-out), visibility 0.4s var(--ease-out);
+    }
+    #mobile-menu .mobile-link {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), color 0.3s ease;
+    }
+    #mobile-menu.is-open .mobile-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #mobile-menu.is-open .mobile-link:nth-child(1) { transition-delay: 0.08s; }
+    #mobile-menu.is-open .mobile-link:nth-child(2) { transition-delay: 0.14s; }
+    #mobile-menu.is-open .mobile-link:nth-child(3) { transition-delay: 0.20s; }
+    #mobile-menu.is-open .mobile-link:nth-child(4) { transition-delay: 0.26s; }
+    #mobile-menu.is-open .mobile-link:nth-child(5) { transition-delay: 0.32s; }
+
+    /* Hamburguesa */
+    .burger span {
+      transition: transform 0.4s var(--ease-out), opacity 0.3s ease;
+      transform-origin: center;
+    }
+    .burger.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.is-active span:nth-child(2) { opacity: 0; }
+    .burger.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Navbar al hacer scroll */
+    #navbar.is-scrolled {
+      background-color: rgba(0, 0, 0, 0.8);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 40px -20px rgba(0, 0, 0, 0.9);
+    }
+
+    /* ==================================================
+       BLOQUE 2 — Scroll reveal, paquetes y proceso
+       ================================================== */
+    :root {
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    section[id] {
+      scroll-margin-top: 5rem;
+    }
+
+    /* ---------- Utilidades de scroll reveal ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+      transition-delay: var(--stagger, 0ms);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+    .reveal-scale {
+      transform: translate3d(0, 24px, 0) scale(0.97);
+    }
+
+    /* Línea de tiempo que se dibuja al entrar en pantalla */
+    .reveal.reveal-line-x {
+      opacity: 1;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1.6s var(--ease-in-out);
+      transition-delay: var(--stagger, 0ms);
+    }
+    .reveal.reveal-line-y {
+      opacity: 1;
+      transform: scaleY(0);
+      transform-origin: center top;
+      transition: transform 1.6s var(--ease-in-out);
+      transition-delay: var(--stagger, 0ms);
+    }
+    .reveal.reveal-line-x.is-visible { transform: scaleX(1); }
+    .reveal.reveal-line-y.is-visible { transform: scaleY(1); }
+
+    /* Si JavaScript no carga, el contenido se muestra igual */
+    html:not(.js) .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ---------- Tarjetas de paquetes ---------- */
+    .pkg-card {
+      position: relative;
+      isolation: isolate;
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), border-color 0.3s ease;
+    }
+    /* Spotlight que sigue el cursor */
+    .pkg-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(212, 169, 79, 0.12), transparent 45%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .pkg-card:hover {
+        transform: translateY(-0.5rem);
+        border-color: rgba(212, 169, 79, 0.35);
+        box-shadow: 0 40px 70px -35px rgba(0, 0, 0, 0.95), 0 0 45px -12px rgba(212, 169, 79, 0.35);
+      }
+      .pkg-card:hover::after {
+        opacity: 1;
+      }
+      .pkg-featured:hover {
+        box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.95), 0 0 70px -10px rgba(212, 169, 79, 0.55);
+      }
+    }
+
+    /* Tarjeta destacada: borde dorado giratorio */
+    .pkg-featured::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: conic-gradient(from var(--angle, 0deg), rgba(212, 169, 79, 0.25) 0deg, var(--gold) 70deg, #fff6dc 100deg, var(--gold) 130deg, rgba(212, 169, 79, 0.25) 200deg, rgba(212, 169, 79, 0.25) 360deg);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: spinBorder 6s linear infinite;
+      pointer-events: none;
+    }
+
+    /* ---------- Línea de tiempo del proceso ---------- */
+    .step-node {
+      transition: transform 0.4s var(--ease-out), border-color 0.3s ease, box-shadow 0.4s var(--ease-out), background-color 0.3s ease;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .step:hover .step-node {
+        transform: scale(1.06);
+        border-color: rgba(212, 169, 79, 0.8);
+        background-color: rgba(212, 169, 79, 0.12);
+        box-shadow: 0 0 35px -5px rgba(212, 169, 79, 0.55);
+      }
+    }
+
+    /* ==================================================
+       BLOQUE 3 — Antes/Después, testimonios, reserva
+       ================================================== */
+
+    /* ---------- Comparador Antes / Después ---------- */
+    .ba {
+      touch-action: pan-y;
+      cursor: ew-resize;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ba img {
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+    .ba-after img {
+      filter: saturate(1.15) contrast(1.08) brightness(1.04);
+    }
+    .ba-before {
+      clip-path: inset(0 50% 0 0);
+      will-change: clip-path;
+    }
+    .ba-before img {
+      filter: saturate(0.3) brightness(0.68) contrast(0.82) blur(0.6px);
+    }
+    /* Capa de "suciedad": velo opaco y manchas */
+    .ba-before::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 22% 30%, rgba(140, 125, 100, 0.22), transparent 30%),
+        radial-gradient(circle at 70% 65%, rgba(120, 110, 90, 0.2), transparent 35%),
+        radial-gradient(circle at 45% 85%, rgba(100, 95, 80, 0.25), transparent 30%),
+        linear-gradient(180deg, rgba(90, 85, 75, 0.25), rgba(60, 55, 45, 0.3));
+      mix-blend-mode: multiply;
+    }
+    .ba-handle {
+      will-change: transform;
+    }
+    .ba-knob {
+      transition: transform 0.16s var(--ease-out), box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+    .ba.is-dragging .ba-knob {
+      transform: scale(0.92);
+      box-shadow: 0 0 0 8px rgba(212, 169, 79, 0.18), 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .ba-handle:focus-visible {
+      outline: none;
+    }
+    .ba-handle:focus-visible .ba-knob {
+      box-shadow: 0 0 0 4px rgba(212, 169, 79, 0.6), 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .ba:hover .ba-knob {
+        background-color: #e6c77a;
+      }
+    }
+
+    /* ---------- Tarjetas de testimonios ---------- */
+    .quote-card {
+      transition: transform 0.45s var(--ease-out), border-color 0.3s ease, box-shadow 0.45s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .quote-card:hover {
+        transform: translateY(-0.5rem);
+        border-color: rgba(212, 169, 79, 0.3);
+        box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9), 0 0 40px -15px rgba(212, 169, 79, 0.3);
+      }
+    }
+
+    /* ---------- Formulario ---------- */
+    .field {
+      width: 100%;
+      border-radius: 0.875rem;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background-color: rgba(255, 255, 255, 0.03);
+      padding: 0.95rem 1rem 0.95rem 2.85rem;
+      font-size: 1rem;
+      color: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+    .field::placeholder {
+      color: rgba(163, 163, 163, 0.6);
+    }
+    .field:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .field:focus {
+      outline: none;
+      border-color: rgba(212, 169, 79, 0.7);
+      background-color: rgba(212, 169, 79, 0.04);
+      box-shadow: 0 0 0 4px rgba(212, 169, 79, 0.12);
+    }
+    .was-validated .field:invalid,
+    .field:user-invalid {
+      border-color: rgba(239, 68, 68, 0.6);
+    }
+    .field:user-invalid:focus {
+      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
+    }
+    select.field {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 2.75rem;
+      cursor: pointer;
+    }
+    select.field option {
+      background-color: #111111;
+      color: #ffffff;
+    }
+    .field-icon {
+      transition: color 0.2s ease;
+    }
+    .field-wrap:focus-within .field-icon {
+      color: #e6c77a;
+    }
+
+    /* Estado de envío del formulario */
+    .form-panel {
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+    .form-panel.is-hidden {
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+      pointer-events: none;
+    }
+    .spinner {
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ---------- Botón flotante WhatsApp ---------- */
+    .wa-float {
+      opacity: 0;
+      transform: translateY(16px) scale(0.95);
+      pointer-events: none;
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+    .wa-float.is-shown {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .wa-btn {
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), filter 0.3s ease;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .wa-btn:hover {
+        transform: scale(1.08);
+        filter: brightness(1.08);
+        box-shadow: 0 0 0 6px rgba(37, 211, 102, 0.15), 0 15px 35px -8px rgba(37, 211, 102, 0.6);
+      }
+      .wa-float:hover .wa-tooltip {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    .wa-btn:active {
+      transform: scale(0.95);
+      transition-duration: 0.1s;
+    }
+    .wa-tooltip {
+      opacity: 0;
+      transform: translateX(6px);
+      transition: opacity 0.2s ease, transform 0.2s var(--ease-out);
+    }
+
+    /* Accesibilidad: movimiento reducido */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .intro, .nav-enter {
+        opacity: 1;
+        transform: none;
+      }
+      /* Se conserva un fundido suave, sin desplazamiento */
+      .reveal {
+        transform: none !important;
+        transition: opacity 0.4s ease !important;
+        transition-delay: 0ms !important;
+      }
+      .pkg-card:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-ink text-neutral-100 overflow-x-hidden selection:bg-gold-500/30 selection:text-white">
+
+  <!-- ================= NAVBAR ================= -->
+  <header id="navbar" class="nav-enter fixed top-0 inset-x-0 z-50 bg-black/60 backdrop-blur-md border-b border-white/5 transition-all duration-500">
+    <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between" aria-label="Navegación principal">
+
+      <!-- Logo -->
+      <a href="#inicio" class="group flex items-center gap-3" aria-label="Lustre Atelier, ir al inicio">
+        <span class="relative flex h-10 w-10 items-center justify-center rounded-full border border-gold-500/50 transition-colors duration-300 group-hover:border-gold-400">
+          <span class="font-display text-sm font-bold tracking-tight text-gold-400">LA</span>
+        </span>
+        <span class="flex flex-col leading-none">
+          <span class="font-display text-lg font-extrabold tracking-[0.28em] text-white">LUSTRE</span>
+          <span class="font-display text-[10px] font-medium tracking-[0.55em] text-gold-400/90 mt-1">ATELIER</span>
+        </span>
+      </a>
+
+      <!-- Enlaces escritorio -->
+      <ul class="hidden lg:flex items-center gap-10 font-display text-[13px] font-medium uppercase tracking-[0.18em] text-neutral-300">
+        <li><a href="#servicios" class="nav-link transition-colors duration-300 hover:text-white">Servicios</a></li>
+        <li><a href="#galeria" class="nav-link transition-colors duration-300 hover:text-white">Galería</a></li>
+        <li><a href="#proceso" class="nav-link transition-colors duration-300 hover:text-white">Proceso</a></li>
+        <li><a href="#testimonios" class="nav-link transition-colors duration-300 hover:text-white">Testimonios</a></li>
+      </ul>
+
+      <!-- CTA escritorio -->
+      <div class="hidden lg:block">
+        <a href="#reservar" class="btn btn-shine-border inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-6 py-3 font-display text-xs font-semibold uppercase tracking-[0.18em] text-white hover:bg-gold-500/10">
+          <i class="fa-regular fa-calendar-check text-gold-400"></i>
+          Reservar Cita
+        </a>
+      </div>
+
+      <!-- Botón menú móvil -->
+      <button id="menu-toggle" type="button" class="burger btn lg:hidden relative z-[60] flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full border border-white/10 bg-white/[0.03]" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="block h-[2px] w-5 rounded-full bg-white"></span>
+        <span class="block h-[2px] w-5 rounded-full bg-white"></span>
+        <span class="block h-[2px] w-5 rounded-full bg-white"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Menú móvil -->
+  <div id="mobile-menu" class="fixed inset-0 z-40 invisible opacity-0 bg-black/95 backdrop-blur-xl lg:hidden" aria-hidden="true">
+    <div class="flex h-full flex-col items-center justify-center gap-8 px-6">
+      <a href="#servicios" class="mobile-link font-display text-3xl font-bold uppercase tracking-[0.15em] text-neutral-200 hover:text-gold-400">Servicios</a>
+      <a href="#galeria" class="mobile-link font-display text-3xl font-bold uppercase tracking-[0.15em] text-neutral-200 hover:text-gold-400">Galería</a>
+      <a href="#proceso" class="mobile-link font-display text-3xl font-bold uppercase tracking-[0.15em] text-neutral-200 hover:text-gold-400">Proceso</a>
+      <a href="#testimonios" class="mobile-link font-display text-3xl font-bold uppercase tracking-[0.15em] text-neutral-200 hover:text-gold-400">Testimonios</a>
+      <a href="#reservar" class="mobile-link btn btn-shine-border mt-6 inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-8 py-4 font-display text-sm font-semibold uppercase tracking-[0.18em] text-white">
+        <i class="fa-regular fa-calendar-check text-gold-400"></i>
+        Reservar Cita
+      </a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section id="inicio" class="relative min-h-screen flex flex-col overflow-hidden">
+
+      <!-- Imagen de fondo con Ken Burns -->
+      <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div class="hero-bg absolute inset-0"></div>
+      </div>
+
+      <!-- Overlays degradados -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/30" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-black/60" aria-hidden="true"></div>
+      <div class="absolute -left-40 top-1/3 h-[520px] w-[520px] rounded-full bg-gold-500/10 blur-[140px]" aria-hidden="true"></div>
+
+      <!-- Contenido -->
+      <div class="relative z-10 flex flex-1 items-center">
+        <div class="max-w-7xl w-full mx-auto px-5 sm:px-8 pt-32 pb-16">
+          <div class="max-w-3xl">
+
+            <!-- Píldora -->
+            <div class="intro inline-flex items-center gap-3 rounded-full border border-gold-500/30 bg-gold-500/[0.07] px-4 py-2 backdrop-blur-sm" style="--delay: 0.35s">
+              <span class="pulse-dot relative inline-flex h-2 w-2 rounded-full bg-gold-500"></span>
+              <span class="font-display text-[11px] sm:text-xs font-semibold uppercase tracking-[0.25em] text-gold-300">Estética Automotriz de Alta Gama</span>
+            </div>
+
+            <!-- Título -->
+            <h1 class="mt-8 font-display font-extrabold uppercase leading-[0.95] tracking-tight text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
+              <span class="intro block text-white" style="--delay: 0.5s">El brillo</span>
+              <span class="intro block text-white" style="--delay: 0.65s">vive en cada</span>
+              <span class="intro block" style="--delay: 0.8s"><span class="text-metal">detalle.</span></span>
+            </h1>
+
+            <!-- Subtítulo -->
+            <p class="intro mt-8 max-w-xl text-base sm:text-lg leading-relaxed text-neutral-300 font-light" style="--delay: 1s">
+              No somos un autolavado. Somos un taller artesanal donde cada vehículo recibe horas de trabajo manual: corrección de pintura, protección cerámica y un acabado espejo que devuelve a tu auto su presencia de salón.
+            </p>
+
+            <!-- Botones -->
+            <div class="intro mt-10 flex flex-col sm:flex-row gap-4" style="--delay: 1.2s">
+              <a href="#servicios" class="btn btn-glow group inline-flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 px-8 py-4 font-display text-sm font-bold uppercase tracking-[0.15em] text-black">
+                Ver Paquetes
+                <i class="fa-solid fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+              </a>
+              <a href="#proceso" class="btn group inline-flex items-center justify-center gap-3 rounded-full border border-white/20 bg-white/[0.02] px-8 py-4 font-display text-sm font-semibold uppercase tracking-[0.15em] text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/[0.06]">
+                <i class="fa-regular fa-circle-play text-gold-400 text-base transition-transform duration-300 group-hover:rotate-12"></i>
+                Nuestro Proceso
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicador de scroll -->
+      <a href="#servicios" class="intro hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 z-10 flex-col items-center gap-3 text-neutral-400 hover:text-white transition-colors duration-300" style="--delay: 1.6s" aria-label="Desplazarse a servicios">
+        <span class="font-display text-[10px] uppercase tracking-[0.35em] [writing-mode:vertical-rl]">Desliza</span>
+        <span class="flex h-10 w-6 justify-center rounded-full border border-white/25 pt-2">
+          <span class="scroll-wheel block h-2 w-[2px] rounded-full bg-gold-400"></span>
+        </span>
+      </a>
+
+      <!-- Barra de estadísticas -->
+      <div class="relative z-10 border-t border-white/10 bg-black/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8">
+          <dl class="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+
+            <div class="intro flex items-center gap-4 py-6 sm:px-6 sm:first:pl-0" style="--delay: 1.4s">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-400">
+                <i class="fa-solid fa-car-side"></i>
+              </span>
+              <div>
+                <dt class="sr-only">Autos detallados</dt>
+                <dd class="font-display text-2xl sm:text-3xl font-extrabold text-white">
+                  +<span class="counter" data-target="500">0</span>
+                </dd>
+                <dd class="text-xs uppercase tracking-[0.2em] text-neutral-400 mt-1">Autos Detallados</dd>
+              </div>
+            </div>
+
+            <div class="intro flex items-center gap-4 py-6 sm:px-6" style="--delay: 1.55s">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-400">
+                <i class="fa-solid fa-hand-sparkles"></i>
+              </span>
+              <div>
+                <dt class="sr-only">Lavado a mano</dt>
+                <dd class="font-display text-2xl sm:text-3xl font-extrabold text-white">
+                  <span class="counter" data-target="100">0</span>%
+                </dd>
+                <dd class="text-xs uppercase tracking-[0.2em] text-neutral-400 mt-1">Lavado a Mano</dd>
+              </div>
+            </div>
+
+            <div class="intro flex items-center gap-4 py-6 sm:px-6" style="--delay: 1.7s">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-400">
+                <i class="fa-solid fa-shield-halved"></i>
+              </span>
+              <div>
+                <dt class="sr-only">Garantía</dt>
+                <dd class="font-display text-2xl sm:text-3xl font-extrabold text-white">Garantía</dd>
+                <dd class="text-xs uppercase tracking-[0.2em] text-neutral-400 mt-1">de Brillo por Escrito</dd>
+              </div>
+            </div>
+
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BLOQUE 2: PAQUETES ================= -->
+    <section id="servicios" class="relative overflow-hidden bg-[#0f0f0f] py-24 sm:py-32">
+      <div class="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-gold-500/40 to-transparent" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute left-1/2 top-40 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-gold-500/[0.06] blur-[150px]" aria-hidden="true"></div>
+
+      <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+
+        <!-- Encabezado -->
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="reveal font-display text-xs font-semibold uppercase tracking-[0.35em] text-gold-400">Paquetes</p>
+          <h2 class="reveal mt-5 font-display text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">Nuestros Paquetes</h2>
+          <p class="reveal mt-6 text-base sm:text-lg font-light leading-relaxed text-neutral-400">
+            Cada paquete es un trabajo manual, sin máquinas de rodillos ni atajos. Elige el nivel de cuidado que tu auto merece y nosotros nos encargamos del resto.
+          </p>
+        </div>
+
+        <!-- Grid de tarjetas -->
+        <div class="mt-16 sm:mt-20 grid gap-8 lg:grid-cols-3 lg:items-stretch">
+
+          <!-- Tarjeta 1: Lavado Detallado -->
+          <div class="reveal reveal-scale">
+            <article class="pkg-card flex h-full flex-col rounded-3xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-8 sm:p-10">
+              <div class="flex items-center justify-between">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-gold-400">
+                  <i class="fa-solid fa-soap"></i>
+                </span>
+                <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs text-neutral-400">
+                  <i class="fa-regular fa-clock text-gold-400/80"></i>
+                  3 – 4 horas
+                </span>
+              </div>
+
+              <h3 class="mt-8 font-display text-xl font-bold uppercase tracking-wide text-white">Lavado Detallado</h3>
+              <p class="mt-3 text-sm leading-relaxed text-neutral-400">Mantenimiento impecable para conservar el brillo entre tratamientos.</p>
+
+              <div class="mt-8 flex items-end gap-2">
+                <span class="text-sm text-neutral-500 mb-2">Desde</span>
+                <span class="font-display text-5xl font-extrabold tracking-tight text-white">$89</span>
+                <span class="text-sm text-neutral-500 mb-2">USD</span>
+              </div>
+
+              <div class="my-8 h-px bg-white/[0.07]"></div>
+
+              <ul class="flex-1 space-y-4 text-sm text-neutral-300">
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Lavado a mano con método de dos cubetas
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Descontaminación férrica de rines y llantas
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Aspirado y limpieza profunda de interiores
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Acondicionado de plásticos, vinilos y pieles
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Cera de carnauba con brillo de hasta 3 meses
+                </li>
+              </ul>
+
+              <a href="#reservar" data-paquete="Lavado Detallado" class="btn mt-10 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.02] px-6 py-4 font-display text-xs font-semibold uppercase tracking-[0.18em] text-white hover:border-white/40 hover:bg-white/[0.06]">
+                Seleccionar Paquete
+              </a>
+            </article>
+          </div>
+
+          <!-- Tarjeta 2: Corrección de Pintura -->
+          <div class="reveal reveal-scale">
+            <article class="pkg-card flex h-full flex-col rounded-3xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-8 sm:p-10">
+              <div class="flex items-center justify-between">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-gold-400">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </span>
+                <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs text-neutral-400">
+                  <i class="fa-regular fa-clock text-gold-400/80"></i>
+                  1 – 2 días
+                </span>
+              </div>
+
+              <h3 class="mt-8 font-display text-xl font-bold uppercase tracking-wide text-white">Corrección de Pintura</h3>
+              <p class="mt-3 text-sm leading-relaxed text-neutral-400">Elimina swirls, rayones finos y opacidad para recuperar la profundidad del color.</p>
+
+              <div class="mt-8 flex items-end gap-2">
+                <span class="text-sm text-neutral-500 mb-2">Desde</span>
+                <span class="font-display text-5xl font-extrabold tracking-tight text-white">$349</span>
+                <span class="text-sm text-neutral-500 mb-2">USD</span>
+              </div>
+
+              <div class="my-8 h-px bg-white/[0.07]"></div>
+
+              <ul class="flex-1 space-y-4 text-sm text-neutral-300">
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Medición del espesor de pintura panel por panel
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Descontaminación mecánica con clay bar
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Pulido en 2 etapas: corte y abrillantado
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Hasta 85% menos marcas, swirls y hologramas
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500/15 text-[10px] text-gold-400"><i class="fa-solid fa-check"></i></span>
+                  Sellador sintético con protección de 6 meses
+                </li>
+              </ul>
+
+              <a href="#reservar" data-paquete="Corrección de Pintura" class="btn mt-10 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.02] px-6 py-4 font-display text-xs font-semibold uppercase tracking-[0.18em] text-white hover:border-white/40 hover:bg-white/[0.06]">
+                Seleccionar Paquete
+              </a>
+            </article>
+          </div>
+
+          <!-- Tarjeta 3: Tratamiento Cerámico Pro (destacada) -->
+          <div class="reveal reveal-scale">
+            <article class="pkg-card pkg-featured flex h-full flex-col rounded-3xl border border-transparent bg-gradient-to-b from-gold-500/[0.09] via-[#141210] to-[#0f0f0f] p-8 sm:p-10 shadow-[0_0_60px_-20px_rgba(212,169,79,0.4)]">
+              <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-4 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.25em] text-black shadow-[0_8px_25px_-6px_rgba(212,169,79,0.7)]">
+                <i class="fa-solid fa-crown text-[9px]"></i>
+                Más Popular
+              </span>
+
+              <div class="flex items-center justify-between">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl border border-gold-500/40 bg-gold-500/10 text-gold-300">
+                  <i class="fa-solid fa-gem"></i>
+                </span>
+                <span class="inline-flex items-center gap-2 rounded-full border border-gold-500/25 px-3 py-1 text-xs text-gold-300/90">
+                  <i class="fa-regular fa-clock"></i>
+                  2 – 3 días
+                </span>
+              </div>
+
+              <h3 class="mt-8 font-display text-xl font-bold uppercase tracking-wide text-white">Tratamiento Cerámico Pro</h3>
+              <p class="mt-3 text-sm leading-relaxed text-neutral-400">Corrección completa más blindaje cerámico de larga duración. El máximo nivel de protección.</p>
+
+              <div class="mt-8 flex items-end gap-2">
+                <span class="text-sm text-neutral-500 mb-2">Desde</span>
+                <span class="font-display text-5xl font-extrabold tracking-tight text-metal">$899</span>
+                <span class="text-sm text-neutral-500 mb-2">USD</span>
+              </div>
+
+              <div class="my-8 h-px bg-gradient-to-r from-transparent via-gold-500/40 to-transparent"></div>
+
+              <ul class="flex-1 space-y-4 text-sm text-neutral-200">
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500 text-[10px] text-black"><i class="fa-solid fa-check"></i></span>
+                  Todo lo incluido en Corrección de Pintura
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500 text-[10px] text-black"><i class="fa-solid fa-check"></i></span>
+                  Recubrimiento cerámico 9H con hasta 5 años de duración
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500 text-[10px] text-black"><i class="fa-solid fa-check"></i></span>
+                  Cerámico en rines, cristales y faros
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500 text-[10px] text-black"><i class="fa-solid fa-check"></i></span>
+                  Efecto hidrofóbico extremo y autolimpiante
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-500 text-[10px] text-black"><i class="fa-solid fa-check"></i></span>
+                  Garantía por escrito y revisión gratuita a los 30 días
+                </li>
+              </ul>
+
+              <a href="#reservar" data-paquete="Tratamiento Cerámico Pro" class="btn btn-glow group mt-10 inline-flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 px-6 py-4 font-display text-xs font-bold uppercase tracking-[0.18em] text-black">
+                Seleccionar Paquete
+                <i class="fa-solid fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i>
+              </a>
+            </article>
+          </div>
+        </div>
+
+        <p class="reveal mt-12 text-center text-xs text-neutral-500">
+          Precios estimados para sedán. SUV, pickups y deportivos se cotizan según tamaño y estado de la pintura.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= BLOQUE 2: PROCESO ================= -->
+    <section id="proceso" class="relative overflow-hidden bg-ink py-24 sm:py-32">
+      <div class="pointer-events-none absolute -right-40 bottom-0 h-[460px] w-[460px] rounded-full bg-gold-500/[0.07] blur-[150px]" aria-hidden="true"></div>
+
+      <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+
+        <!-- Encabezado -->
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="reveal font-display text-xs font-semibold uppercase tracking-[0.35em] text-gold-400">Cómo trabajamos</p>
+          <h2 class="reveal mt-5 font-display text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">Nuestro Proceso <span class="text-metal">Artesanal</span></h2>
+          <p class="reveal mt-6 text-base sm:text-lg font-light leading-relaxed text-neutral-400">
+            Cuatro etapas, sin prisas. Cada una se hace a mano y se verifica antes de pasar a la siguiente.
+          </p>
+        </div>
+
+        <!-- Línea de tiempo -->
+        <div class="relative mt-16 sm:mt-20">
+
+          <!-- Línea horizontal (escritorio) -->
+          <div class="pointer-events-none absolute left-[12.5%] right-[12.5%] top-8 hidden h-px bg-white/10 lg:block" aria-hidden="true">
+            <div class="reveal reveal-line-x h-full w-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600" data-delay="150"></div>
+          </div>
+
+          <!-- Línea vertical (móvil) -->
+          <div class="pointer-events-none absolute bottom-8 left-8 top-8 w-px -translate-x-1/2 bg-white/10 lg:hidden" aria-hidden="true">
+            <div class="reveal reveal-line-y h-full w-full bg-gradient-to-b from-gold-600 via-gold-400 to-gold-600"></div>
+          </div>
+
+          <ol class="relative grid gap-12 lg:grid-cols-4 lg:gap-8">
+
+            <!-- Paso 1 -->
+            <li class="reveal step flex gap-6 lg:flex-col lg:items-center lg:text-center">
+              <div class="step-node relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-gold-500/40 bg-ink">
+                <span class="font-display text-lg font-extrabold text-gold-400">01</span>
+              </div>
+              <div class="pt-2 lg:pt-0">
+                <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.04] text-gold-400 lg:mx-auto">
+                  <i class="fa-solid fa-droplet"></i>
+                </span>
+                <h3 class="mt-4 font-display text-lg font-bold uppercase tracking-wide text-white">Descontaminación</h3>
+                <p class="mt-3 text-sm leading-relaxed text-neutral-400">
+                  Prelavado con espuma activa, lavado a mano en dos cubetas, removedor férrico y clay bar hasta dejar la superficie lisa como vidrio.
+                </p>
+                <span class="mt-4 inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-500">≈ 3 horas</span>
+              </div>
+            </li>
+
+            <!-- Paso 2 -->
+            <li class="reveal step flex gap-6 lg:flex-col lg:items-center lg:text-center">
+              <div class="step-node relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-gold-500/40 bg-ink">
+                <span class="font-display text-lg font-extrabold text-gold-400">02</span>
+              </div>
+              <div class="pt-2 lg:pt-0">
+                <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.04] text-gold-400 lg:mx-auto">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </span>
+                <h3 class="mt-4 font-display text-lg font-bold uppercase tracking-wide text-white">Corrección de Barniz</h3>
+                <p class="mt-3 text-sm leading-relaxed text-neutral-400">
+                  Medimos el espesor de la pintura y pulimos por etapas bajo luz de inspección para eliminar swirls sin comprometer el barniz.
+                </p>
+                <span class="mt-4 inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-500">≈ 8 a 12 horas</span>
+              </div>
+            </li>
+
+            <!-- Paso 3 -->
+            <li class="reveal step flex gap-6 lg:flex-col lg:items-center lg:text-center">
+              <div class="step-node relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-gold-500/40 bg-ink">
+                <span class="font-display text-lg font-extrabold text-gold-400">03</span>
+              </div>
+              <div class="pt-2 lg:pt-0">
+                <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.04] text-gold-400 lg:mx-auto">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </span>
+                <h3 class="mt-4 font-display text-lg font-bold uppercase tracking-wide text-white">Sellado Cerámico</h3>
+                <p class="mt-3 text-sm leading-relaxed text-neutral-400">
+                  Aplicamos el recubrimiento panel por panel en un área controlada y lo dejamos curar 24 horas para máxima dureza y brillo.
+                </p>
+                <span class="mt-4 inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-500">≈ 24 horas de curado</span>
+              </div>
+            </li>
+
+            <!-- Paso 4 -->
+            <li class="reveal step flex gap-6 lg:flex-col lg:items-center lg:text-center">
+              <div class="step-node relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-gold-500/40 bg-ink">
+                <span class="font-display text-lg font-extrabold text-gold-400">04</span>
+              </div>
+              <div class="pt-2 lg:pt-0">
+                <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-white/[0.04] text-gold-400 lg:mx-auto">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <h3 class="mt-4 font-display text-lg font-bold uppercase tracking-wide text-white">Inspección con Luz UV</h3>
+                <p class="mt-3 text-sm leading-relaxed text-neutral-400">
+                  Revisión final con luz UV y LED de alta intensidad para detectar residuos o imperfecciones antes de entregarte las llaves.
+                </p>
+                <span class="mt-4 inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-500">≈ 1 hora</span>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- CTA del proceso -->
+        <div class="reveal mt-20 flex flex-col items-center gap-5 text-center">
+          <p class="text-sm text-neutral-400">¿Listo para ver tu auto como el primer día?</p>
+          <a href="#reservar" class="btn btn-shine-border inline-flex items-center gap-2 rounded-full bg-white/[0.03] px-8 py-4 font-display text-xs font-semibold uppercase tracking-[0.18em] text-white hover:bg-gold-500/10">
+            <i class="fa-regular fa-calendar-check text-gold-400"></i>
+            Reservar Cita
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BLOQUE 3: RESULTADOS (ANTES / DESPUÉS) ================= -->
+    <section id="galeria" class="reveal relative overflow-hidden bg-[#0f0f0f] py-24 sm:py-32">
+      <div class="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-gold-500/40 to-transparent" aria-hidden="true"></div>
+
+      <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.35em] text-gold-400">Galería</p>
+          <h2 class="mt-5 font-display text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">Resultados <span class="text-metal">Reales</span></h2>
+          <p class="mt-6 text-base sm:text-lg font-light leading-relaxed text-neutral-400">
+            Desliza para comparar. A la izquierda, cómo llegó. A la derecha, cómo se fue.
+          </p>
+        </div>
+
+        <!-- Comparador -->
+        <div class="mt-14 sm:mt-16">
+          <div id="ba" class="ba relative aspect-[4/5] sm:aspect-[16/9] w-full overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 shadow-[0_40px_100px_-40px_rgba(0,0,0,1)]">
+
+            <!-- Después (imagen base) -->
+            <div class="ba-after absolute inset-0">
+              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=80" alt="Auto después del detallado: pintura brillante y nítida" class="h-full w-full object-cover" loading="lazy" draggable="false">
+            </div>
+
+            <!-- Antes (imagen superior recortada) -->
+            <div id="ba-before" class="ba-before absolute inset-0">
+              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=80" alt="Auto antes del detallado: pintura opaca y sucia" class="h-full w-full object-cover" loading="lazy" draggable="false">
+            </div>
+
+            <!-- Etiquetas -->
+            <span class="pointer-events-none absolute left-4 top-4 sm:left-6 sm:top-6 rounded-full border border-white/15 bg-black/60 px-4 py-1.5 font-display text-[10px] font-semibold uppercase tracking-[0.25em] text-neutral-300 backdrop-blur-md">Antes</span>
+            <span class="pointer-events-none absolute right-4 top-4 sm:right-6 sm:top-6 rounded-full border border-gold-500/40 bg-black/60 px-4 py-1.5 font-display text-[10px] font-semibold uppercase tracking-[0.25em] text-gold-300 backdrop-blur-md">Después</span>
+
+            <!-- Control deslizante -->
+            <div id="ba-handle" class="ba-handle absolute inset-y-0 left-0 w-0" role="slider" tabindex="0" aria-label="Comparar antes y después" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% antes">
+              <span class="absolute inset-y-0 -left-px w-[2px] bg-gradient-to-b from-gold-400/0 via-gold-300 to-gold-400/0 shadow-[0_0_20px_rgba(212,169,79,0.8)]"></span>
+              <span class="ba-knob absolute left-0 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white/80 bg-gold-500 text-black shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+                <i class="fa-solid fa-left-right text-lg"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs text-neutral-400">
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2"><i class="fa-solid fa-wand-magic-sparkles text-gold-400"></i> Corrección en 2 etapas</span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2"><i class="fa-solid fa-shield-halved text-gold-400"></i> Cerámico 9H</span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2"><i class="fa-regular fa-clock text-gold-400"></i> 2 días de trabajo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BLOQUE 3: TESTIMONIOS ================= -->
+    <section id="testimonios" class="reveal relative overflow-hidden bg-ink py-24 sm:py-32">
+      <div class="pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full bg-gold-500/[0.06] blur-[150px]" aria-hidden="true"></div>
+
+      <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="font-display text-xs font-semibold uppercase tracking-[0.35em] text-gold-400">Testimonios</p>
+          <h2 class="mt-5 font-display text-4xl sm:text-5xl font-extrabold uppercase tracking-tight text-white">Lo que dicen los <span class="text-metal">coleccionistas</span></h2>
+          <p class="mt-6 text-base sm:text-lg font-light leading-relaxed text-neutral-400">
+            Propietarios que confían su auto solo a manos expertas.
+          </p>
+        </div>
+
+        <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+          <!-- Testimonio 1 -->
+          <figure class="reveal quote-card relative flex flex-col rounded-3xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-8 sm:p-10">
+            <i class="fa-solid fa-quote-right absolute right-8 top-8 text-4xl text-white/[0.05]" aria-hidden="true"></i>
+            <div class="flex gap-1 text-sm text-gold-400" aria-label="5 de 5 estrellas">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="mt-6 flex-1 text-[15px] leading-relaxed text-neutral-300">
+              “Llevé mi 911 con años de swirls por lavados automáticos. Me lo entregaron mejor que el día que salió de la agencia. Se nota que lo trabajan a mano y con paciencia.”
+            </blockquote>
+            <figcaption class="mt-8 flex items-center gap-4 border-t border-white/[0.07] pt-6">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/40 bg-gold-500/10 font-display text-sm font-bold text-gold-300">RM</span>
+              <span>
+                <span class="block font-display text-sm font-bold uppercase tracking-wide text-white">Ricardo Méndez</span>
+                <span class="mt-1 block text-xs text-neutral-500"><i class="fa-solid fa-car-side mr-1 text-gold-500/70"></i> Porsche 911 Carrera S</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <!-- Testimonio 2 -->
+          <figure class="reveal quote-card relative flex flex-col rounded-3xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-8 sm:p-10">
+            <i class="fa-solid fa-quote-right absolute right-8 top-8 text-4xl text-white/[0.05]" aria-hidden="true"></i>
+            <div class="flex gap-1 text-sm text-gold-400" aria-label="5 de 5 estrellas">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="mt-6 flex-1 text-[15px] leading-relaxed text-neutral-300">
+              “Me midieron el espesor de la pintura antes de pulir y me explicaron cada paso. Esa transparencia no la había visto en ningún otro taller. El M4 ahora repele el agua como nunca.”
+            </blockquote>
+            <figcaption class="mt-8 flex items-center gap-4 border-t border-white/[0.07] pt-6">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/40 bg-gold-500/10 font-display text-sm font-bold text-gold-300">AS</span>
+              <span>
+                <span class="block font-display text-sm font-bold uppercase tracking-wide text-white">Andrea Salgado</span>
+                <span class="mt-1 block text-xs text-neutral-500"><i class="fa-solid fa-car-side mr-1 text-gold-500/70"></i> BMW M4 Competition</span>
+              </span>
+            </figcaption>
+          </figure>
+
+          <!-- Testimonio 3 -->
+          <figure class="reveal quote-card relative flex flex-col rounded-3xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-8 sm:p-10 md:col-span-2 lg:col-span-1">
+            <i class="fa-solid fa-quote-right absolute right-8 top-8 text-4xl text-white/[0.05]" aria-hidden="true"></i>
+            <div class="flex gap-1 text-sm text-gold-400" aria-label="5 de 5 estrellas">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <blockquote class="mt-6 flex-1 text-[15px] leading-relaxed text-neutral-300">
+              “He probado varios talleres y ninguno había llegado a este nivel. Hasta las costuras de los asientos quedaron como nuevas. Mi AMG no va a ningún otro lado.”
+            </blockquote>
+            <figcaption class="mt-8 flex items-center gap-4 border-t border-white/[0.07] pt-6">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/40 bg-gold-500/10 font-display text-sm font-bold text-gold-300">JO</span>
+              <span>
+                <span class="block font-display text-sm font-bold uppercase tracking-wide text-white">Javier Ortega</span>
+                <span class="mt-1 block text-xs text-neutral-500"><i class="fa-solid fa-car-side mr-1 text-gold-500/70"></i> Mercedes-AMG GT</span>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BLOQUE 3: RESERVA ================= -->
+    <section id="reservar" class="reveal relative overflow-hidden bg-[#0f0f0f] py-24 sm:py-32">
+      <div class="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-gold-500/40 to-transparent" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -right-40 top-1/4 h-[520px] w-[520px] rounded-full bg-gold-500/[0.07] blur-[160px]" aria-hidden="true"></div>
+
+      <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+        <div class="grid gap-14 lg:grid-cols-2 lg:gap-20">
+
+          <!-- Columna izquierda: información -->
+          <div>
+            <p class="font-display text-xs font-semibold uppercase tracking-[0.35em] text-gold-400">Reservas</p>
+            <h2 class="mt-5 font-display text-4xl sm:text-5xl font-extrabold uppercase leading-[1.05] tracking-tight text-white">Agenda tu <span class="text-metal">Tratamiento</span></h2>
+            <p class="mt-6 max-w-md text-base sm:text-lg font-light leading-relaxed text-neutral-400">
+              Trabajamos con agenda limitada para dedicar a cada auto el tiempo que necesita. Déjanos tus datos y te confirmamos fecha y presupuesto en menos de 24 horas.
+            </p>
+
+            <ul class="mt-12 space-y-7">
+              <li class="flex gap-5">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gold-500/30 bg-gold-500/10 text-gold-400">
+                  <i class="fa-solid fa-location-dot"></i>
+                </span>
+                <div>
+                  <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Estudio</p>
+                  <p class="mt-1.5 text-neutral-200">Calle del Taller 128, Zona Industrial Norte</p>
+                  <a href="https://maps.google.com" target="_blank" rel="noopener" class="nav-link mt-1 inline-block text-sm text-gold-400 hover:text-gold-300">Ver en el mapa</a>
+                </div>
+              </li>
+              <li class="flex gap-5">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gold-500/30 bg-gold-500/10 text-gold-400">
+                  <i class="fa-solid fa-phone"></i>
+                </span>
+                <div>
+                  <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Contacto</p>
+                  <a href="tel:+525512345678" class="mt-1.5 block text-neutral-200 transition-colors duration-300 hover:text-white">+52 55 1234 5678</a>
+                  <a href="mailto:citas@lustreatelier.com" class="mt-1 block text-sm text-neutral-400 transition-colors duration-300 hover:text-white">citas@lustreatelier.com</a>
+                </div>
+              </li>
+              <li class="flex gap-5">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gold-500/30 bg-gold-500/10 text-gold-400">
+                  <i class="fa-regular fa-clock"></i>
+                </span>
+                <div class="flex-1">
+                  <p class="font-display text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">Horarios</p>
+                  <dl class="mt-2 max-w-xs space-y-1.5 text-sm">
+                    <div class="flex justify-between gap-6"><dt class="text-neutral-400">Lunes a Viernes</dt><dd class="text-neutral-200">8:00 – 18:00</dd></div>
+                    <div class="flex justify-between gap-6"><dt class="text-neutral-400">Sábado</dt><dd class="text-neutral-200">9:00 – 14:00</dd></div>
+                    <div class="flex justify-between gap-6"><dt class="text-neutral-400">Domingo</dt><dd class="text-neutral-500">Solo con cita</dd></div>
+                  </dl>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Columna derecha: formulario -->
+          <div class="relative">
+            <div class="relative rounded-3xl border border-white/[0.08] bg-gradient-to-b from-white/[0.05] to-white/[0.015] p-7 sm:p-10 shadow-[0_40px_100px_-40px_rgba(0,0,0,1)]">
+
+              <!-- Formulario -->
+              <form id="booking-form" class="form-panel space-y-5" novalidate>
+                <div>
+                  <h3 class="font-display text-xl font-bold uppercase tracking-wide text-white">Solicitud de cita</h3>
+                  <p class="mt-2 text-sm text-neutral-400">Todos los campos son obligatorios.</p>
+                </div>
+
+                <div>
+                  <label for="f-nombre" class="mb-2 block text-xs font-medium uppercase tracking-[0.15em] text-neutral-400">Nombre</label>
+                  <div class="field-wrap relative">
+                    <i class="field-icon fa-regular fa-user pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-neutral-500"></i>
+                    <input id="f-nombre" name="nombre" type="text" class="field" placeholder="Tu nombre completo" autocomplete="name" required minlength="2">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="f-telefono" class="mb-2 block text-xs font-medium uppercase tracking-[0.15em] text-neutral-400">Teléfono</label>
+                  <div class="field-wrap relative">
+                    <i class="field-icon fa-solid fa-phone pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-neutral-500"></i>
+                    <input id="f-telefono" name="telefono" type="tel" class="field" placeholder="55 1234 5678" autocomplete="tel" inputmode="tel" required pattern="[0-9+()\s\-]{8,}">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="f-modelo" class="mb-2 block text-xs font-medium uppercase tracking-[0.15em] text-neutral-400">Modelo del vehículo</label>
+                  <div class="field-wrap relative">
+                    <i class="field-icon fa-solid fa-car pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-neutral-500"></i>
+                    <input id="f-modelo" name="modelo" type="text" class="field" placeholder="Ej. Porsche 911, 2022, negro" required minlength="2">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="f-paquete" class="mb-2 block text-xs font-medium uppercase tracking-[0.15em] text-neutral-400">Paquete</label>
+                  <div class="field-wrap relative">
+                    <i class="field-icon fa-solid fa-gem pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-neutral-500"></i>
+                    <select id="f-paquete" name="paquete" class="field" required>
+                      <option value="" disabled selected>Selecciona un paquete</option>
+                      <option value="Lavado Detallado">Lavado Detallado · desde $89</option>
+                      <option value="Corrección de Pintura">Corrección de Pintura · desde $349</option>
+                      <option value="Tratamiento Cerámico Pro">Tratamiento Cerámico Pro · desde $899</option>
+                      <option value="Necesito asesoría">Aún no lo sé, necesito asesoría</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs text-neutral-500"></i>
+                  </div>
+                </div>
+
+                <p id="form-error" class="hidden rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300" role="alert"></p>
+
+                <button id="booking-submit" type="submit" class="btn btn-glow group flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 px-6 py-4 font-display text-sm font-bold uppercase tracking-[0.15em] text-black disabled:cursor-wait disabled:opacity-80">
+                  <span class="btn-label">Confirmar Solicitud</span>
+                  <i class="btn-icon fa-solid fa-arrow-right text-xs transition-transform duration-300 group-hover:translate-x-1"></i>
+                  <span class="btn-spinner spinner hidden h-4 w-4 rounded-full border-2 border-black/30 border-t-black"></span>
+                </button>
+
+                <p class="text-center text-xs text-neutral-500">
+                  <i class="fa-solid fa-lock mr-1"></i> Tus datos solo se usan para agendar tu cita.
+                </p>
+              </form>
+
+              <!-- Estado de éxito -->
+              <div id="booking-success" class="form-panel is-hidden absolute inset-0 flex flex-col items-center justify-center p-8 text-center" aria-live="polite">
+                <span class="flex h-20 w-20 items-center justify-center rounded-full border border-gold-500/40 bg-gold-500/10 text-3xl text-gold-400 shadow-[0_0_50px_-10px_rgba(212,169,79,0.6)]">
+                  <i class="fa-solid fa-check"></i>
+                </span>
+                <h3 class="mt-8 font-display text-2xl font-extrabold uppercase tracking-wide text-white">¡Solicitud recibida!</h3>
+                <p id="success-text" class="mt-4 max-w-sm text-neutral-400">Te contactaremos en menos de 24 horas para confirmar fecha y presupuesto.</p>
+                <a id="success-wa" href="#" target="_blank" rel="noopener" class="btn mt-8 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 font-display text-xs font-bold uppercase tracking-[0.15em] text-black">
+                  <i class="fa-brands fa-whatsapp text-base"></i>
+                  Agilizar por WhatsApp
+                </a>
+                <button id="booking-reset" type="button" class="mt-5 text-sm text-neutral-400 underline-offset-4 transition-colors duration-300 hover:text-white hover:underline">Enviar otra solicitud</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="relative border-t border-white/[0.07] bg-ink">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14">
+      <div class="flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
+
+        <!-- Logo -->
+        <a href="#inicio" class="group flex items-center gap-3" aria-label="Lustre Atelier, volver al inicio">
+          <span class="flex h-10 w-10 items-center justify-center rounded-full border border-gold-500/50 transition-colors duration-300 group-hover:border-gold-400">
+            <span class="font-display text-sm font-bold tracking-tight text-gold-400">LA</span>
+          </span>
+          <span class="flex flex-col leading-none">
+            <span class="font-display text-lg font-extrabold tracking-[0.28em] text-white">LUSTRE</span>
+            <span class="font-display text-[10px] font-medium tracking-[0.55em] text-gold-400/90 mt-1">ATELIER</span>
+          </span>
+        </a>
+
+        <!-- Enlaces rápidos -->
+        <nav aria-label="Enlaces del pie de página">
+          <ul class="flex flex-wrap gap-x-8 gap-y-3 font-display text-xs font-medium uppercase tracking-[0.18em] text-neutral-400">
+            <li><a href="#servicios" class="nav-link transition-colors duration-300 hover:text-white">Servicios</a></li>
+            <li><a href="#galeria" class="nav-link transition-colors duration-300 hover:text-white">Galería</a></li>
+            <li><a href="#proceso" class="nav-link transition-colors duration-300 hover:text-white">Proceso</a></li>
+            <li><a href="#testimonios" class="nav-link transition-colors duration-300 hover:text-white">Testimonios</a></li>
+            <li><a href="#reservar" class="nav-link transition-colors duration-300 hover:text-white">Reservar</a></li>
+          </ul>
+        </nav>
+
+        <!-- Redes sociales -->
+        <div class="flex gap-3">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="btn flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-neutral-400 hover:border-gold-500/50 hover:text-gold-400"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok" class="btn flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-neutral-400 hover:border-gold-500/50 hover:text-gold-400"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="btn flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-neutral-400 hover:border-gold-500/50 hover:text-gold-400"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" class="btn flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-neutral-400 hover:border-gold-500/50 hover:text-gold-400"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="mt-12 flex flex-col gap-3 border-t border-white/[0.07] pt-8 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
+        <p>© <span id="year">2026</span> Lustre Atelier. Todos los derechos reservados.</p>
+        <p>Estética automotriz artesanal · Hecho a mano, como tu auto merece.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= BOTÓN FLOTANTE WHATSAPP ================= -->
+  <div id="wa-float" class="wa-float fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-30 flex items-center gap-3">
+    <span class="wa-tooltip pointer-events-none hidden sm:block rounded-full border border-white/10 bg-black/80 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">¿Dudas? Escríbenos</span>
+    <a id="wa-link" href="https://wa.me/525512345678" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" class="wa-btn relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_12px_30px_-8px_rgba(37,211,102,0.55)]">
+      <span class="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-ping [animation-duration:2.4s]" aria-hidden="true"></span>
+      <i class="fa-brands fa-whatsapp relative text-[28px]"></i>
+    </a>
+  </div>
+
+  <script>
+    (function () {
+      const navbar = document.getElementById('navbar');
+      const toggle = document.getElementById('menu-toggle');
+      const menu = document.getElementById('mobile-menu');
+      const mobileLinks = menu.querySelectorAll('a');
+
+      /* ---------- Navbar al hacer scroll ---------- */
+      function onScroll() {
+        navbar.classList.toggle('is-scrolled', window.scrollY > 40);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* ---------- Menú móvil ---------- */
+      function openMenu() {
+        menu.classList.remove('invisible', 'opacity-0');
+        menu.classList.add('is-open');
+        menu.setAttribute('aria-hidden', 'false');
+        toggle.classList.add('is-active');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Cerrar menú');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        menu.classList.add('invisible', 'opacity-0');
+        menu.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
+        toggle.classList.remove('is-active');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menú');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', function () {
+        if (menu.classList.contains('is-open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      mobileLinks.forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+          closeMenu();
+          toggle.focus();
+        }
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 1024 && menu.classList.contains('is-open')) {
+          closeMenu();
+        }
+      });
+
+      /* ---------- Contadores animados ---------- */
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const counters = document.querySelectorAll('.counter');
+
+      function animateCounter(el) {
+        const target = parseInt(el.dataset.target, 10);
+        if (reduceMotion) {
+          el.textContent = target;
+          return;
+        }
+        const duration = 1800;
+        const start = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased);
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+
+      setTimeout(function () {
+        counters.forEach(animateCounter);
+      }, reduceMotion ? 0 : 1500);
+    })();
+  </script>
+
+  <!-- ================= BLOQUE 2: SCROLL REVEAL ================= -->
+  <script>
+    (function () {
+      const STAGGER_MS = 90;
+      const MAX_STAGGER_MS = 540;
+      const items = document.querySelectorAll('.reveal');
+
+      function show(el) {
+        el.classList.add('is-visible');
+        /* Al terminar, se quita el retraso para que no afecte a futuras transiciones */
+        el.addEventListener('transitionend', function clear(e) {
+          if (e.target !== el) return;
+          el.style.removeProperty('--stagger');
+          el.removeEventListener('transitionend', clear);
+        });
+      }
+
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(show);
+        return;
+      }
+
+      const observer = new IntersectionObserver(function (entries) {
+        /* Elementos que entran juntos aparecen en cascada, en orden de lectura */
+        const entering = entries
+          .filter(function (entry) { return entry.isIntersecting; })
+          .map(function (entry) { return entry.target; })
+          .sort(function (a, b) {
+            return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+          });
+
+        entering.forEach(function (el, index) {
+          const base = parseInt(el.dataset.delay || '0', 10);
+          const delay = Math.min(base + index * STAGGER_MS, MAX_STAGGER_MS);
+          el.style.setProperty('--stagger', delay + 'ms');
+          show(el);
+          observer.unobserve(el);
+        });
+      }, {
+        threshold: 0,
+        rootMargin: '0px 0px -12% 0px'
+      });
+
+      items.forEach(function (el) {
+        observer.observe(el);
+      });
+
+      /* ---------- Spotlight de las tarjetas (solo con mouse) ---------- */
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        document.querySelectorAll('.pkg-card').forEach(function (card) {
+          card.addEventListener('pointermove', function (e) {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+          });
+        });
+      }
+    })();
+  </script>
+
+  <!-- ================= BLOQUE 3: ANTES/DESPUÉS, FORMULARIO Y BOTÓN FLOTANTE ================= -->
+  <script>
+    (function () {
+      /* Número de WhatsApp del negocio (formato internacional, sin + ni espacios) */
+      const WA_NUMBER = '525512345678';
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ==================================================
+         Comparador Antes / Después
+         ================================================== */
+      const ba = document.getElementById('ba');
+      const before = document.getElementById('ba-before');
+      const handle = document.getElementById('ba-handle');
+
+      if (ba && before && handle) {
+        let pos = 50;
+        let width = ba.clientWidth;
+        let frame = null;
+        let dragging = false;
+        let hintFrame = null;
+        let interacted = false;
+
+        function clamp(value) {
+          return Math.min(100, Math.max(0, value));
+        }
+
+        function render() {
+          frame = null;
+          before.style.clipPath = 'inset(0 ' + (100 - pos) + '% 0 0)';
+          handle.style.transform = 'translate3d(' + (pos / 100) * width + 'px, 0, 0)';
+          const rounded = Math.round(pos);
+          handle.setAttribute('aria-valuenow', rounded);
+          handle.setAttribute('aria-valuetext', rounded + '% antes');
+        }
+
+        function setPos(value) {
+          pos = clamp(value);
+          if (frame === null) {
+            frame = requestAnimationFrame(render);
+          }
+        }
+
+        function positionFromEvent(e) {
+          const rect = ba.getBoundingClientRect();
+          return ((e.clientX - rect.left) / rect.width) * 100;
+        }
+
+        function stopHint() {
+          interacted = true;
+          if (hintFrame !== null) {
+            cancelAnimationFrame(hintFrame);
+            hintFrame = null;
+          }
+        }
+
+        /* Mouse y lápiz: el control salta al punto donde se hace clic.
+           Dedo: solo se mueve al deslizar, para no interferir con el scroll vertical. */
+        ba.addEventListener('pointerdown', function (e) {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          stopHint();
+          dragging = true;
+          ba.setPointerCapture(e.pointerId);
+          ba.classList.add('is-dragging');
+          if (e.pointerType !== 'touch') {
+            setPos(positionFromEvent(e));
+            e.preventDefault();
+          }
+        });
+
+        ba.addEventListener('pointermove', function (e) {
+          if (!dragging) return;
+          setPos(positionFromEvent(e));
+        });
+
+        function endDrag() {
+          dragging = false;
+          ba.classList.remove('is-dragging');
+        }
+        ba.addEventListener('pointerup', endDrag);
+        ba.addEventListener('pointercancel', endDrag);
+        ba.addEventListener('lostpointercapture', endDrag);
+
+        /* Teclado: flechas (Shift para pasos grandes), Inicio y Fin */
+        handle.addEventListener('keydown', function (e) {
+          const step = e.shiftKey ? 10 : 2;
+          let next = null;
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') next = pos - step;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowUp') next = pos + step;
+          if (e.key === 'Home') next = 0;
+          if (e.key === 'End') next = 100;
+          if (next !== null) {
+            e.preventDefault();
+            stopHint();
+            setPos(next);
+          }
+        });
+
+        /* Recalcular al cambiar el tamaño */
+        if ('ResizeObserver' in window) {
+          new ResizeObserver(function () {
+            width = ba.clientWidth;
+            setPos(pos);
+          }).observe(ba);
+        } else {
+          window.addEventListener('resize', function () {
+            width = ba.clientWidth;
+            setPos(pos);
+          });
+        }
+
+        setPos(50);
+
+        /* Pista de uso: un vaivén suave la primera vez que el comparador entra en pantalla */
+        function playHint() {
+          if (interacted || reduceMotion) return;
+          const keyframes = [50, 30, 70, 50];
+          const segment = 650;
+          const start = performance.now();
+          function ease(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          }
+          function tick(now) {
+            if (interacted) return;
+            const elapsed = now - start;
+            const index = Math.min(Math.floor(elapsed / segment), keyframes.length - 2);
+            const t = Math.min((elapsed - index * segment) / segment, 1);
+            const from = keyframes[index];
+            const to = keyframes[index + 1];
+            setPos(from + (to - from) * ease(t));
+            if (elapsed < segment * (keyframes.length - 1)) {
+              hintFrame = requestAnimationFrame(tick);
+            } else {
+              hintFrame = null;
+            }
+          }
+          hintFrame = requestAnimationFrame(tick);
+        }
+
+        if ('IntersectionObserver' in window) {
+          const hintObserver = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) {
+              hintObserver.disconnect();
+              setTimeout(playHint, 500);
+            }
+          }, { threshold: 0.6 });
+          hintObserver.observe(ba);
+        }
+      }
+
+      /* ==================================================
+         Formulario de reserva
+         ================================================== */
+      const form = document.getElementById('booking-form');
+      const success = document.getElementById('booking-success');
+      const submitBtn = document.getElementById('booking-submit');
+      const errorBox = document.getElementById('form-error');
+      const packageSelect = document.getElementById('f-paquete');
+      const successWa = document.getElementById('success-wa');
+      const resetBtn = document.getElementById('booking-reset');
+
+      /* Los botones "Seleccionar Paquete" preseleccionan el paquete en el formulario */
+      document.querySelectorAll('[data-paquete]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          packageSelect.value = btn.dataset.paquete;
+        });
+      });
+
+      const messages = {
+        nombre: 'Escribe tu nombre.',
+        telefono: 'Escribe un teléfono válido (mínimo 8 dígitos).',
+        modelo: 'Indica el modelo de tu vehículo.',
+        paquete: 'Selecciona un paquete.'
+      };
+
+      function showError(text) {
+        errorBox.textContent = text;
+        errorBox.classList.remove('hidden');
+      }
+
+      function hideError() {
+        errorBox.textContent = '';
+        errorBox.classList.add('hidden');
+      }
+
+      function setLoading(isLoading) {
+        submitBtn.disabled = isLoading;
+        submitBtn.querySelector('.btn-label').textContent = isLoading ? 'Enviando…' : 'Confirmar Solicitud';
+        submitBtn.querySelector('.btn-icon').classList.toggle('hidden', isLoading);
+        submitBtn.querySelector('.btn-spinner').classList.toggle('hidden', !isLoading);
+      }
+
+      form.addEventListener('input', function () {
+        if (form.classList.contains('was-validated') && form.checkValidity()) {
+          hideError();
+        }
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        form.classList.add('was-validated');
+
+        const firstInvalid = form.querySelector(':invalid:not(fieldset)');
+        if (firstInvalid) {
+          showError(messages[firstInvalid.name] || 'Revisa los campos marcados.');
+          firstInvalid.focus();
+          return;
+        }
+
+        hideError();
+        setLoading(true);
+
+        const data = new FormData(form);
+        const text =
+          'Hola, quiero agendar un tratamiento.\n' +
+          'Nombre: ' + data.get('nombre') + '\n' +
+          'Teléfono: ' + data.get('telefono') + '\n' +
+          'Vehículo: ' + data.get('modelo') + '\n' +
+          'Paquete: ' + data.get('paquete');
+
+        /* Simula el envío. Sustituir por la llamada real al backend o servicio de formularios. */
+        setTimeout(function () {
+          setLoading(false);
+          successWa.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text);
+          document.getElementById('success-text').textContent =
+            'Gracias, ' + String(data.get('nombre')).split(' ')[0] + '. Te contactaremos en menos de 24 horas para confirmar fecha y presupuesto de tu ' + data.get('modelo') + '.';
+          form.classList.add('is-hidden');
+          form.setAttribute('aria-hidden', 'true');
+          success.classList.remove('is-hidden');
+          resetBtn.focus({ preventScroll: true });
+        }, 900);
+      });
+
+      resetBtn.addEventListener('click', function () {
+        form.reset();
+        form.classList.remove('was-validated');
+        hideError();
+        success.classList.add('is-hidden');
+        form.classList.remove('is-hidden');
+        form.removeAttribute('aria-hidden');
+        document.getElementById('f-nombre').focus({ preventScroll: true });
+      });
+
+      /* ==================================================
+         Botón flotante de WhatsApp y año del footer
+         ================================================== */
+      const waFloat = document.getElementById('wa-float');
+      const waLink = document.getElementById('wa-link');
+      waLink.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent('Hola, me interesa un tratamiento de detailing.');
+
+      setTimeout(function () {
+        waFloat.classList.add('is-shown');
+      }, reduceMotion ? 0 : 2200);
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
